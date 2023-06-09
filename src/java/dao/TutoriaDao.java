@@ -13,17 +13,18 @@ import java.util.List;
 
 public class TutoriaDao {
     
-    public static List<Tutoria> obtenerListaTutorias() {
+    public static List<Tutoria> obtenerListaTutorias(int idTutor) {
     List<Tutoria> listaTutorias = new ArrayList<>();
     Connection cn = null;
-    PreparedStatement ps = null;
+    PreparedStatement stmt = null;
     ResultSet rs = null;
 
     try {
-        String query = "SELECT * FROM tutoria";
+        String query = "SELECT * FROM tutoria WHERE idTutor = ?";
+        stmt = cn.prepareStatement(query);
+        stmt.setInt(1,idTutor);
         cn = Conexion.getConexion();
-        ps = cn.prepareStatement(query);
-        rs = ps.executeQuery();
+        rs = stmt.executeQuery();
 
         while (rs.next()) {
             Tutoria tutoria = new Tutoria();
@@ -45,13 +46,59 @@ public class TutoriaDao {
     } catch (SQLException e) {
         System.out.println("Error: No se pudo obtener la lista de tutorías\n" + e.getMessage());
     } finally {
-        Conexion.cerrarRecursos(cn, ps, rs);
+        Conexion.cerrarRecursos(cn, stmt, rs);
     }
 
-    return listaTutorias;
+    return listaTutorias;}
+    
+     public static void eliminarTutoria(int idTutoria) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+        conn = Conexion.getConexion();
+        String query = "DELETE FROM tutoria WHERE idTutoria = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1,idTutoria);
+        stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión, el statement y el result set
+            Conexion.cerrarRecursos(conn, stmt, rs);
+        }
+    }
+     
+    public static void AgregarTutoria(Tutoria tutoria) {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+        conn = Conexion.getConexion();
+
+        // Consulta SQL para insertar la tutoria en la base de datos
+        String query = "INSERT INTO tutoria (tema, estado, fecha, horaIni, horaFin, idTutor, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, tutoria.getTema());
+        stmt.setString(2, tutoria.getEstado());
+        stmt.setString(3, tutoria.getFecha());
+        stmt.setString(4, tutoria.getHoraIni());
+        stmt.setString(4, tutoria.getHoraFin());
+        stmt.setInt(5, tutoria.getIdTutor());
+        stmt.setInt(6, tutoria.getIdCurso());
+        stmt.executeUpdate();
+
+        // Obtener el ID generado para la publicación
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        Conexion.cerrarRecursos(conn, stmt, rs);
+    }
 }
 
-public static List<Tutoria> obtenerTutoriasPorTerminoDeBusqueda(String searchTerm) {
+
+    public static List<Tutoria> obtenerTutoriasPorTerminoDeBusqueda(String searchTerm) {
     List<Tutoria> tutorias = new ArrayList<>();
 
     if (searchTerm.isEmpty()) {
@@ -99,16 +146,5 @@ public static List<Tutoria> obtenerTutoriasPorTerminoDeBusqueda(String searchTer
     }
 
     return tutorias;
-}
-
-
-
-
-
-
-    
-    
-    
-    
-    
+    }
 }
