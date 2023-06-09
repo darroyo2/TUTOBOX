@@ -8,22 +8,34 @@ package entity;
 public class Tutoria {
 
     private int id;
-    private String nombre;
+    private String tema;
     private String estado;
-    private String tutor;
-    private String feedback;
-    private int calificacion;
-    private Usuario usuario;
+    private String fecha;
+    private String horaIni;
+    private String horaFin;
+    private int puntuacion;
+    private String comentario;
+    private int estadoPago;
+    private int idTutor;
+    private int idEstudiante;
+    private int idCurso;
 
-    public Tutoria(int id, String nombre, String estado, String tutor, String feedback, int calificacion, Usuario usuario) {
+    public Tutoria(int id, String tema, String estado, String fecha, String horaIni, String horaFin, int puntuacion, String comentario, int estadoPago, int idTutor, int idEstudiante, int idCurso) {
         this.id = id;
-        this.nombre = nombre;
+        this.tema = tema;
         this.estado = estado;
-        this.tutor = tutor;
-        this.feedback = feedback;
-        this.calificacion = calificacion;
-        this.usuario = usuario;
+        this.fecha = fecha;
+        this.horaIni = horaIni;
+        this.horaFin = horaFin;
+        this.puntuacion = puntuacion;
+        this.comentario = comentario;
+        this.estadoPago = estadoPago;
+        this.idTutor = idTutor;
+        this.idEstudiante = idEstudiante;
+        this.idCurso = idCurso;
     }
+
+    
 
     public Tutoria() {
     }
@@ -36,12 +48,12 @@ public class Tutoria {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTema() {
+        return tema;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
     public String getEstado() {
@@ -52,42 +64,77 @@ public class Tutoria {
         this.estado = estado;
     }
 
-    public String getTutor() {
-        return tutor;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setTutor(String tutor) {
-        this.tutor = tutor;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    public String getFeedback() {
-        return feedback;
+    public String getHoraIni() {
+        return horaIni;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setHoraIni(String horaIni) {
+        this.horaIni = horaIni;
     }
 
-    public int getCalificacion() {
-        return calificacion;
+    public String getHoraFin() {
+        return horaFin;
     }
 
-    public void setCalificacion(int calificacion) {
-        this.calificacion = calificacion;
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public int getPuntuacion() {
+        return puntuacion;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
     }
 
-    public Object getEmail() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getComentario() {
+        return comentario;
     }
 
-    
-}
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public int getEstadoPago() {
+        return estadoPago;
+    }
+
+    public void setEstadoPago(int estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public int getIdTutor() {
+        return idTutor;
+    }
+
+    public void setIdTutor(int idTutor) {
+        this.idTutor = idTutor;
+    }
+
+    public int getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+
+}   
 

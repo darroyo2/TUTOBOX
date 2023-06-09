@@ -12,9 +12,6 @@ import java.util.List;
 
 
 public class TutoriaDao {
-
-    
-    
     
     public static List<Tutoria> obtenerListaTutorias() {
     List<Tutoria> listaTutorias = new ArrayList<>();
@@ -31,12 +28,16 @@ public class TutoriaDao {
         while (rs.next()) {
             Tutoria tutoria = new Tutoria();
             tutoria.setId(rs.getInt("id"));
-            tutoria.setNombre(rs.getString("nombre"));
+            tutoria.setTema(rs.getString("tema"));
             tutoria.setEstado(rs.getString("estado"));
-            tutoria.setTutor(rs.getString("tutor"));
-            tutoria.setFeedback(rs.getString("feedback"));
-            tutoria.setCalificacion(rs.getInt("calificacion"));
-
+            tutoria.setFecha(rs.getString("fecha"));
+            tutoria.setHoraIni(rs.getString("horaIni"));
+            tutoria.setHoraFin(rs.getString("horaFin"));
+            tutoria.setPuntuacion(rs.getInt("puntuacion"));
+            tutoria.setComentario(rs.getString("comentario"));
+            tutoria.setEstadoPago(rs.getInt("estadoPago"));
+            tutoria.setIdTutor(rs.getInt("idTutor"));
+            tutoria.setIdEstudiante(rs.getInt("idEstudiante"));
             // También puedes obtener el usuario asociado a la tutoría aquí, si es necesario
 
             listaTutorias.add(tutoria);
@@ -67,7 +68,7 @@ public static List<Tutoria> obtenerTutoriasPorTerminoDeBusqueda(String searchTer
 
     try {
         conn = Conexion.getConexion(); // Método para obtener la conexión a la base de datos
-        String query = "SELECT * FROM tutoria WHERE nombre LIKE ? OR estado LIKE ? OR tutor LIKE ? OR feedback LIKE ?";
+        String query = "SELECT * FROM tutoria WHERE tema LIKE ? OR estado LIKE ? OR tutor LIKE ? OR feedback LIKE ?";
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, "%" + searchTerm + "%");
         pstmt.setString(2, "%" + searchTerm + "%");
@@ -77,11 +78,17 @@ public static List<Tutoria> obtenerTutoriasPorTerminoDeBusqueda(String searchTer
 
         while (rs.next()) {
             Tutoria tutoria = new Tutoria();
-            tutoria.setNombre(rs.getString("nombre"));
+            tutoria.setId(rs.getInt("id"));
+            tutoria.setTema(rs.getString("tema"));
             tutoria.setEstado(rs.getString("estado"));
-            tutoria.setTutor(rs.getString("tutor"));
-            tutoria.setFeedback(rs.getString("feedback"));
-            tutoria.setCalificacion(rs.getInt("calificacion"));
+            tutoria.setFecha(rs.getString("fecha"));
+            tutoria.setHoraIni(rs.getString("horaIni"));
+            tutoria.setHoraFin(rs.getString("horaFin"));
+            tutoria.setPuntuacion(rs.getInt("puntuacion"));
+            tutoria.setComentario(rs.getString("comentario"));
+            tutoria.setEstadoPago(rs.getInt("estadoPago"));
+            tutoria.setIdTutor(rs.getInt("idTutor"));
+            tutoria.setIdEstudiante(rs.getInt("idEstudiante"));
             // Obtener más datos de la tutoría y asignarlos al objeto tutoria
             tutorias.add(tutoria);
         }

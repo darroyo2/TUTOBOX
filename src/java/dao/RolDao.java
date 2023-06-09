@@ -19,7 +19,7 @@ public class RolDao {
     try {
         conn = getConexion(); // Obtener conexión a la base de datos
 
-        String query = "SELECT rol_id FROM usuario_rol WHERE usuario_id = ?";
+        String query = "SELECT idTipousuario FROM usuario_rol    WHERE usuario_id = ?";
         stmt = conn.prepareStatement(query);
         stmt.setInt(1, usuarioId);
         rs = stmt.executeQuery();
