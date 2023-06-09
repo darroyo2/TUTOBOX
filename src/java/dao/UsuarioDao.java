@@ -19,7 +19,7 @@ public class UsuarioDao {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            String query = "select * from USUARIO where email=? and password=?";
+            String query = "select * from USUARIO where correo=? and contrasena=?";
             cn = Conexion.getConexion();
             ps = cn.prepareStatement(query);
             ps.setString(1, email);
@@ -28,10 +28,10 @@ public class UsuarioDao {
             if (rs.next()) {
                 c = new Usuario();
                 c.setId(rs.getInt("id"));
-                c.setNombres(rs.getString("nombres"));
+                c.setNombres(rs.getString("nombre"));
                 c.setApellidos(rs.getString("apellidos"));
-                c.setEmail(rs.getString("email"));
-                c.setPassword(rs.getString("password"));
+                c.setEmail(rs.getString("correo"));
+                c.setPassword(rs.getString("contrasena"));
             }
             rs.close();
             ps.close();
@@ -48,7 +48,7 @@ public class UsuarioDao {
     
     public static boolean actualizarContrasenia(Usuario usuario) {
     try (Connection conn = Conexion.getConexion()) {
-        String sql = "UPDATE usuario SET password = ? WHERE email = ?";
+        String sql = "UPDATE usuario SET contrasena = ? WHERE correo = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuario.getPassword());
@@ -85,11 +85,12 @@ public class UsuarioDao {
             rs = ps.executeQuery();
             while(rs.next()) {
                 c = new Usuario();
-                c.setId(rs.getInt("id"));
-                c.setNombres(rs.getString("nombres"));
+                c.setId(rs.getInt("idUsuario"));
+                c.setNombres(rs.getString("nombre"));
                 c.setApellidos(rs.getString("apellidos"));
-                c.setEmail(rs.getString("email"));
-                c.setPassword(rs.getString("password"));
+                c.setEmail(rs.getString("correo"));
+                c.setPassword(rs.getString("contrasena"));
+                c.setIdTipo(rs.getInt("idTipo"));
                 lista.add(c);
             }
             rs.close();
@@ -111,14 +112,16 @@ public class UsuarioDao {
     List<String> roles = new ArrayList<>();
 
     try (Connection conn = Conexion.getConexion()) {
-        String sql = "SELECT r.nombre FROM rol r JOIN usuario_rol ur ON r.id = ur.rol_id WHERE ur.usuario_id = ?";
+        String sql = "SELECT t.descripcion FROM tipousuario t JOIN usuario u ON t.idTipousuario = u.idTipo WHERE u.idUsuario = ?";
+        // SELECT t.descripcion FROM tipousuario t JOIN usuario u ON t.idTipousuario = u.idTipo WHERE u.idUsuario = ?"
+        //"SELECT r.nombre FROM rol r JOIN usuario_rol ur ON r.id = ur.rol_id WHERE ur.usuario_id = ?"
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, usuarioId);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    String rolNombre = rs.getString("nombre");
+                    String rolNombre = rs.getString("descripcion");
                     roles.add(rolNombre);
                 }
             }
@@ -132,7 +135,7 @@ public class UsuarioDao {
 
 public static boolean guardarUsuario(Usuario usuario) {
     try (Connection conn = Conexion.getConexion()) {
-        String sql = "INSERT INTO usuario (nombres, apellidos, email, password) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nombre, apellidos, correo, contrasena) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNombres());
@@ -157,7 +160,7 @@ public static boolean guardarUsuario(Usuario usuario) {
 
     public static boolean verificarContraseniaRepetida(Usuario usuario) {
     try (Connection conn = Conexion.getConexion()) {
-        String sql = "SELECT COUNT(*) FROM usuario WHERE email = ? AND password = ?";
+        String sql = "SELECT COUNT(*) FROM usuario WHERE correo = ? AND contrasena = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuario.getEmail());
@@ -194,13 +197,13 @@ public static String obtenerNombrePorUsuarioId(int usuarioId) {
     try {
         conn = Conexion.getConexion(); // Obtener conexión a la base de datos
 
-        String query = "SELECT nombres FROM usuario WHERE id = ?";
+        String query = "SELECT nombre FROM usuario WHERE id = ?";
         stmt = conn.prepareStatement(query);
         stmt.setInt(1, usuarioId);
         rs = stmt.executeQuery();
 
         if (rs.next()) {
-            nombre = rs.getString("nombres");
+            nombre = rs.getString("nombre");
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -218,7 +221,9 @@ public static List<String> obtenerNombreRolesUsuario(String nombreUsuario) {
     List<String> roles = new ArrayList<>();
 
     try (Connection conn = Conexion.getConexion()) {
-        String sql = "SELECT r.nombre FROM rol r JOIN usuario_rol ur ON r.id = ur.rol_id JOIN usuario u ON ur.usuario_id = u.id WHERE u.nombres = ?";
+        String sql = "SELECT t.descripcion FROM tipousuario t JOIN usuario u ON t.idTipousuario = u.idTipo WHERE u.nombre = ?";
+        // "SELECT r.nombre FROM rol r JOIN usuario_rol ur ON r.id = ur.rol_id JOIN usuario u ON ur.usuario_id = u.id WHERE u.nombres = ?"
+        // "SELECT t.descripcion FROM tipousuario t JOIN usuario u ON t.idTipousuario = u.idTipo WHERE u.nombre = ?"
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nombreUsuario);

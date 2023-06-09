@@ -55,11 +55,9 @@ public class ServletInicioSesion extends HttpServlet {
             List<String> roles = UsuarioDao.obtenerNombreRolesUsuario(usuario.getId());
             sesion.setAttribute("UsuarioRoles", roles);
 
-            if (roles.contains("Estudiante") && roles.contains("Estudiante Experto")) {
-                direccion = "PrincipalUsuarioExperto.jsp";
-            } else if (roles.contains("Estudiante")) {
+            if (roles.contains("Alumno")) {
                 direccion = "PrincipalUsuario.jsp";
-            } else if (roles.contains("Estudiante Experto")) {
+            } else if (roles.contains("Tutor")) {
                 sesion.setAttribute(clave, roles);
                 direccion = "PrincipalExperto.jsp";
             }

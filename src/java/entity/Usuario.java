@@ -7,13 +7,15 @@ public class Usuario {
     private String apellidos;
     private String email;
     private String password;
+    private int idTipo;
 
-    public Usuario(int id, String nombres, String apellidos, String email, String password) {
+    public Usuario(int id, String nombres, String apellidos, String email, String password, int idTipo) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.email = email;
         this.password = password;
+        this.idTipo = idTipo;
     }
     
     public Usuario(String nombres, String apellidos, String email, String password) {
@@ -65,5 +67,15 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(int idTipo) {
+        this.idTipo = idTipo;
+    }
+    
+    
 
 }

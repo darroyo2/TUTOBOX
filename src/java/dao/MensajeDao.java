@@ -26,7 +26,7 @@ public class MensajeDao {
             connection = Conexion.getConexion();
 
             // Consulta SQL para obtener los mensajes
-            String query = "SELECT id, asunto, contenido, fecha FROM mensaje";
+            String query = "SELECT id, asunto, cuerpo, fechaEnvio, idUsuarioEmisor, idUsuarioReceptor FROM mensaje";
 
             // Preparar la sentencia SQL
             statement = connection.prepareStatement(query);
@@ -36,12 +36,14 @@ public class MensajeDao {
 
             // Recorrer los resultados y crear objetos Mensaje
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
+                int id = resultSet.getInt("id");
                 String asunto = resultSet.getString("asunto");
-                String contenido = resultSet.getString("contenido");
-                String fecha = resultSet.getString("fecha");
+                String contenido = resultSet.getString("cuerpo");
+                String fecha = resultSet.getString("fechaEnvio");
+                int emisor = resultSet.getInt("idUsuarioEmisor");
+                int receptor = resultSet.getInt("idUsuarioReceptor");
 
-                Mensaje mensaje = new Mensaje(id, asunto, contenido, fecha);
+                Mensaje mensaje = new Mensaje(id, asunto, contenido, fecha, emisor, receptor);
                 mensajes.add(mensaje);
             }
         } catch (SQLException e) {
@@ -66,13 +68,7 @@ public class MensajeDao {
         return mensajes;
     }
     
-    
-    
-    
-    
-    
-    
-    public static Mensaje obtenerMensajePorId(String id) {
+    public static Mensaje obtenerMensajePorId(int receptor) {
     Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -82,9 +78,9 @@ public class MensajeDao {
         conn = Conexion.getConexion(); // Obtener la conexión a la base de datos
         
         // Preparar la consulta SQL
-        String query = "SELECT * FROM mensaje WHERE id = ?";
+        String query = "SELECT * FROM mensaje WHERE idUsuarioReceptor = ?";
         stmt = conn.prepareStatement(query);
-        stmt.setString(1, id);
+        stmt.setInt(1, receptor);
         
         // Ejecutar la consulta
         rs = stmt.executeQuery();
@@ -92,12 +88,14 @@ public class MensajeDao {
         // Verificar si se encontró un mensaje con el ID proporcionado
         if (rs.next()) {
             // Extraer los datos del mensaje de la fila actual
+            int id = rs.getInt("id");
             String asunto = rs.getString("asunto");
-            String contenido = rs.getString("contenido");
-            String fecha = rs.getString("fecha");
+            String contenido = rs.getString("cuerpo");
+            String fecha = rs.getString("fechaEnvio");
+            int emisor = rs.getInt("idUsuarioEmisor");
             
             // Crear el objeto Mensaje con los datos obtenidos
-            mensaje = new Mensaje(id, asunto, contenido, fecha);
+              mensaje = new Mensaje(id, asunto, contenido, fecha, emisor, receptor);
         }
     } catch (SQLException e) {
         e.printStackTrace();

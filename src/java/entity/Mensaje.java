@@ -6,26 +6,38 @@ package entity;
 
 
 public class Mensaje {
-    private String id;
+    private int id;
     private String asunto;
     private String contenido;
     private String fecha;
+    private int idEmisor;
+    private int idReceptor;
     
     // Constructor
-    public Mensaje(String id, String asunto, String contenido, String fecha) {
+    
+    public Mensaje(int id, String asunto, String contenido, String fecha, int idEmisor, int idReceptor) {
         this.id = id;
         this.asunto = asunto;
         this.contenido = contenido;
         this.fecha = fecha;
+        this.idEmisor = idEmisor;
+        this.idReceptor = idReceptor;
     }
-    
+
+    public Mensaje(String asunto, String contenido, String fecha, int idEmisor, int idReceptor) {
+        this.asunto = asunto;
+        this.contenido = contenido;
+        this.fecha = fecha;
+        this.idEmisor = idEmisor;
+        this.idReceptor = idReceptor;
+    }
+
     // Getters y setters
-    
-    public String getId() {
+    public int getId() {
         return id;
     }
     
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     
@@ -52,5 +64,22 @@ public class Mensaje {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    public int getIdEmisor() {
+        return idEmisor;
+    }
+
+    public void setIdEmisor(int idEmisor) {
+        this.idEmisor = idEmisor;
+    }
+
+    public int getIdReceptor() {
+        return idReceptor;
+    }
+
+    public void setIdReceptor(int idReceptor) {
+        this.idReceptor = idReceptor;
+    }
+    
 }
 
