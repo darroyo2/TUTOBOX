@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 public class PublicacionDao {
 
-    public static List<Publicacion> obtenerListaPublicaciones() {
+    public static List<Publicacion> obtenerListaPublicaciones(int idTutor) {
         List<Publicacion> listaPublicaciones = new ArrayList<>();
 
         // Establecer conexión con la base de datos
@@ -26,21 +26,22 @@ public class PublicacionDao {
             conn = Conexion.getConexion(); // Método para obtener la conexión a la base de datos
 
             // Consulta SQL para obtener las publicaciones
-            String query = "SELECT * FROM publicacion";
-
+            String query = "SELECT * FROM publicacion WHERE idUsuario = ?";
             stmt = conn.prepareStatement(query);
+            stmt.setInt(1, idTutor);
             rs = stmt.executeQuery();
 
             // Iterar sobre los resultados y crear objetos Publicacion
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("idPublicacion");
+                String titulo = rs.getString("titulo");
+                String cuerpo = rs.getString("cuerpo");
+                String fecha = rs.getString("fecha");
                 byte[] documento = rs.getBytes("documento");
-                String publicacion = rs.getString("publicacion");
-                String descripcion = rs.getString("descripcion");
-                String tipoCurso = rs.getString("tipo_curso");
-                String fechaPublicacion = rs.getString("fecha_publicacion");
+                int idCurso = rs.getInt("idCurso");
+                int idUsuario = rs.getInt("idUsuario");
 
-                Publicacion publicacionObj = new Publicacion(id, documento, publicacion, descripcion, tipoCurso, fechaPublicacion);
+                Publicacion publicacionObj = new Publicacion(id, documento, titulo, cuerpo, fecha, idCurso, idUsuario);
                 listaPublicaciones.add(publicacionObj);
             }
         } catch (SQLException e) {
@@ -66,14 +67,16 @@ public class PublicacionDao {
         conn = Conexion.getConexion();
 
         // Consulta SQL para insertar la publicación en la base de datos y obtener el ID generado
-        String query = "INSERT INTO publicacion (documento, publicacion, descripcion, tipo_curso, fecha_publicacion) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO publicacion (titulo, cuerpo, fecha, documento, idCurso, idUsuario) VALUES (?, ?, ?, ?, ?, ?)";
 
         stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setBytes(1, publicacion.getDocumento());
-        stmt.setString(2, publicacion.getPublicacion());
-        stmt.setString(3, publicacion.getDescripcion());
-        stmt.setString(4, publicacion.getTipoCurso());
-        stmt.setString(5, publicacion.getFechaPublicacion());
+        
+        stmt.setString(1, publicacion.getTitulo());
+        stmt.setString(2, publicacion.getCuerpo());
+        stmt.setString(3, publicacion.getFecha());
+        stmt.setBytes(4, publicacion.getDocumento());
+        stmt.setInt(5, publicacion.getIdCurso());
+        stmt.setInt(6, publicacion.getIdUsuario());
         stmt.executeUpdate();
 
         // Obtener el ID generado para la publicación

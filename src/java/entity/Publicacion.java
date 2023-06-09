@@ -8,25 +8,31 @@ package entity;
 public class Publicacion {
     private int id;
     private byte[] documento;
-    private String publicacion;
-    private String descripcion;
-    private String tipoCurso;
-    private String fechaPublicacion;
+    private String titulo;
+    private String cuerpo;
+    private String fecha;
+    private int idCurso;
+    private int idUsuario;
 
-    public Publicacion(int id, byte[] documento, String publicacion, String descripcion, String tipoCurso, String fechaPublicacion) {
+    public Publicacion(int id, byte[] documento, String titulo, String cuerpo, String fecha, int idCurso, int idUsuario) {
         this.id = id;
         this.documento = documento;
-        this.publicacion = publicacion;
-        this.descripcion = descripcion;
-        this.tipoCurso = tipoCurso;
-        this.fechaPublicacion = fechaPublicacion;
+        this.titulo = titulo;
+        this.cuerpo = cuerpo;
+        this.fecha = fecha;
+        this.idCurso = idCurso;
+        this.idUsuario = idUsuario;
     }
 
-    public Publicacion(byte[] documento, String publicacion, String descripcion, String tipoCurso, String fechaPublicacion) {
-        this(0, documento, publicacion, descripcion, tipoCurso, fechaPublicacion);
+    public Publicacion(byte[] documento, String titulo, String cuerpo, String fecha, int idCurso, int idUsuario) {
+        this.documento = documento;
+        this.titulo = titulo;
+        this.cuerpo = cuerpo;
+        this.fecha = fecha;
+        this.idCurso = idCurso;
+        this.idUsuario = idUsuario;
     }
-    
-    
+
     public int getId() {
         return id;
     }
@@ -43,35 +49,44 @@ public class Publicacion {
         this.documento = documento;
     }
 
-    public String getPublicacion() {
-        return publicacion;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setPublicacion(String publicacion) {
-        this.publicacion = publicacion;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getCuerpo() {
+        return cuerpo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
     }
 
-    public String getTipoCurso() {
-        return tipoCurso;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setTipoCurso(String tipoCurso) {
-        this.tipoCurso = tipoCurso;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    public String getFechaPublicacion() {
-        return fechaPublicacion;
+    public int getIdCurso() {
+        return idCurso;
     }
 
-    public void setFechaPublicacion(String fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
     }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
 }
