@@ -13,7 +13,24 @@ import java.sql.Statement;
 
 
 public class PublicacionDao {
-
+    
+    public static void eliminarPublicacion(int idPublicacion) throws SQLException{
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+        conn = Conexion.getConexion();
+        String query = "DELETE FROM publicacion WHERE idPublicacion = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1,idPublicacion);
+        stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar la conexión, el statement y el result set
+            Conexion.cerrarRecursos(conn, stmt, rs);
+        }
+    }
     public static List<Publicacion> obtenerListaPublicaciones(int idTutor) {
         List<Publicacion> listaPublicaciones = new ArrayList<>();
 

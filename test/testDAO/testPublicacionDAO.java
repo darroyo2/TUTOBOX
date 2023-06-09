@@ -15,20 +15,22 @@ import java.util.logging.Logger;
  * @author HP
  */
 public class testPublicacionDAO {
-    public static void main (String [] args){
-        Publicacion publicacionObj = new Publicacion(1, null, "test2", "test2", "2023-06-09", 3, 4);
-        PublicacionDao.guardarPublicacion(publicacionObj);
-        
-        List<Publicacion> lista = null;
-        lista = PublicacionDao.obtenerListaPublicaciones(4);
-        System.out.println(lista.size());
-        for (Publicacion p : lista) {
-           System.out.println("ID : "+p.getId());
-         System.out.println("Nombre : "+p.getCuerpo());
-        System.out.println("Apellido : "+p.getFecha());
-        System.out.println("Correo : "+p.getTitulo());
-        System.out.println("Contraseña : "+p.getDocumento());
-          System.out.println("IDTipo : "+p.getIdCurso());
-        System.out.println("IDTipo : "+p.getIdUsuario());}
-    }
-    }
+    public static void main (String [] args) throws SQLException{
+        PublicacionDao.eliminarPublicacion(1);
+    }}
+//        Publicacion publicacionObj = new Publicacion(1, null, "test2", "test2", "2023-06-09", 3, 4);
+//        PublicacionDao.guardarPublicacion(publicacionObj);
+//        
+//        List<Publicacion> lista = null;
+//        lista = PublicacionDao.obtenerListaPublicaciones(4);
+//        System.out.println(lista.size());
+//        for (Publicacion p : lista) {
+//           System.out.println("ID : "+p.getId());
+//         System.out.println("Nombre : "+p.getCuerpo());
+//        System.out.println("Apellido : "+p.getFecha());
+//        System.out.println("Correo : "+p.getTitulo());
+//        System.out.println("Contraseña : "+p.getDocumento());
+//          System.out.println("IDTipo : "+p.getIdCurso());
+//        System.out.println("IDTipo : "+p.getIdUsuario());}
+//    }
+//    }
