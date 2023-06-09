@@ -4,7 +4,6 @@
  */
 package entity;
 
-
 public class Mensaje {
     private int id;
     private String asunto;

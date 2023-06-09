@@ -67,10 +67,6 @@ public class UsuarioDao {
         return false;
     }
 }
-
-
-    
-    
     
     public static List<Usuario> listaUsuario() throws SQLException {
         Usuario c = null;
@@ -97,16 +93,13 @@ public class UsuarioDao {
             ps.close();
             //Conexion.cerrarConexion(cn);
         } catch (SQLException e) {
-            System.out.println("Error: No se pudo traer la lista de clientes\n" + e.getMessage());
+            System.out.println("Error: No se pudo traer la lista de usuarios\n" + e.getMessage());
             throw e;// Conexion.cerrarConexion(cn);
         } finally {
             Conexion.cerrarConexion(cn);
         }
         return lista;
     }
-    
-    
-    
     
     public static List<String> obtenerNombreRolesUsuario(int usuarioId) {
     List<String> roles = new ArrayList<>();
@@ -214,9 +207,6 @@ public static String obtenerNombrePorUsuarioId(int usuarioId) {
     return nombre;
 }
 
-
-
-
 public static List<String> obtenerNombreRolesUsuario(String nombreUsuario) {
     List<String> roles = new ArrayList<>();
 
@@ -240,13 +230,5 @@ public static List<String> obtenerNombreRolesUsuario(String nombreUsuario) {
     }
 
     return roles;
-}
-
-    
-    
-    
-    
-    
-    
-    
+}    
 }
