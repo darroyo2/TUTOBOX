@@ -20,15 +20,15 @@ public class TutoriaDao {
     ResultSet rs = null;
 
     try {
-        String query = "SELECT * FROM tutoria WHERE idTutor = ?";
         cn = Conexion.getConexion();
+        String query = "SELECT * FROM tutoria WHERE idTutor = ?";
         stmt = cn.prepareStatement(query);
         stmt.setInt(1,idTutor);
         rs = stmt.executeQuery();
 
         while (rs.next()) {
             Tutoria tutoria = new Tutoria();
-            tutoria.setId(rs.getInt("id"));
+            tutoria.setId(rs.getInt("idTutoria"));
             tutoria.setTema(rs.getString("tema"));
             tutoria.setEstado(rs.getString("estado"));
             tutoria.setFecha(rs.getString("fecha"));
@@ -39,6 +39,7 @@ public class TutoriaDao {
             tutoria.setEstadoPago(rs.getInt("estadoPago"));
             tutoria.setIdTutor(rs.getInt("idTutor"));
             tutoria.setIdEstudiante(rs.getInt("idEstudiante"));
+            tutoria.setIdCurso(rs.getInt("idCurso"));
             // También puedes obtener el usuario asociado a la tutoría aquí, si es necesario
 
             listaTutorias.add(tutoria);
@@ -84,9 +85,9 @@ public class TutoriaDao {
         stmt.setString(2, tutoria.getEstado());
         stmt.setString(3, tutoria.getFecha());
         stmt.setString(4, tutoria.getHoraIni());
-        stmt.setString(4, tutoria.getHoraFin());
-        stmt.setInt(5, tutoria.getIdTutor());
-        stmt.setInt(6, tutoria.getIdCurso());
+        stmt.setString(5, tutoria.getHoraFin());
+        stmt.setInt(6, tutoria.getIdTutor());
+        stmt.setInt(7, tutoria.getIdCurso());
         stmt.executeUpdate();
 
         // Obtener el ID generado para la publicación
