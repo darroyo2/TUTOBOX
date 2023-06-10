@@ -22,7 +22,7 @@
             List<Mensaje> mensajes = MensajeDao.obtenerMensajes(); // Llamada a la función obtenerMensajes() para obtener la lista de mensajes
             
             for (Mensaje mensaje : mensajes) { // Iterar sobre la lista de mensajes
-              String id = mensaje.getId();
+              int id = mensaje.getId();
               String asunto = mensaje.getAsunto();
               String contenido = mensaje.getContenido();
               String fecha = mensaje.getFecha();
