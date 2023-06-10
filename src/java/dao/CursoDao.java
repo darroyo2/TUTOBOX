@@ -41,5 +41,29 @@ public class CursoDao {
         }
         return lista;
     }
-    
+     
+    public static String NombreCurso(int idCurso) throws SQLException{
+        Connection cn = null;
+        PreparedStatement st;
+        ResultSet rs;
+        String nombre = "";
+        try {
+            String query = "SELECT * FROM curso WHERE idCurso = ?";
+            cn = Conexion.getConexion();
+            st = cn.prepareStatement(query);  
+            st.setInt(1, idCurso);
+            rs = st.executeQuery();
+            if (rs.next()) {
+            nombre = rs.getString("descripcion");
+        }
+        }
+         catch (SQLException e) {
+            System.out.println("Error: No se pudo traer la lista de cursos\n" + e.getMessage());
+            throw e;// Conexion.cerrarConexion(cn);
+        } finally {
+            Conexion.cerrarConexion(cn);
+        }
+         return null;
+        
+    }
 }
