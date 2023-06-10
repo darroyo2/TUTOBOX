@@ -62,6 +62,7 @@
                                 <th>Descripcion</th>
                                 <th>Tipo de Curso</th>
                                 <th>Fecha de Publicacion</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +73,7 @@
                                     <td><%= publicacion.getCuerpo() %></td>
                                     <td><%= publicacion.getIdCurso() %></td>
                                     <td><%= publicacion.getFecha() %></td>
+                                    <td><a class="btn btn btn-secondary btn_add_tutoria" href="PublicacionExpertoServlet?accion=eliminar&id=<%= publicacion.getId()%>" role="button">Eliminar</a></td>
                                 </tr>
                             <% } %>
                         </tbody>

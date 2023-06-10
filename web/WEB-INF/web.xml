@@ -4,9 +4,17 @@
         <servlet-name>EliminarTutoriaServlet</servlet-name>
         <servlet-class>controller.EliminarTutoriaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PublicacionExpertoServlet</servlet-name>
+        <servlet-class>controller.PublicacionExpertoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EliminarTutoriaServlet</servlet-name>
         <url-pattern>/EliminarTutoriaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublicacionExpertoServlet</servlet-name>
+        <url-pattern>/PublicacionExpertoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
