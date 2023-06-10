@@ -16,8 +16,8 @@ import java.util.List;
 public class CursoDao {
      public static List<Curso> listarCursos() throws SQLException {
         Connection cn = null;
-        PreparedStatement st;
-        ResultSet rs;
+        PreparedStatement st = null;
+        ResultSet rs = null;
         List<Curso> lista=new ArrayList<>();
         try {
             String query = "SELECT * FROM curso";
@@ -27,17 +27,15 @@ public class CursoDao {
             while(rs.next()) {
                 Curso c = new Curso();
                 c.setIdCurso(rs.getInt("idCurso"));
-                c.setNombre(rs.getString("nombre"));
+                c.setNombre(rs.getString("descripcion"));
                 lista.add(c);
             }
-            rs.close();
-            st.close();
             //Conexion.cerrarConexion(cn);
         } catch (SQLException e) {
             System.out.println("Error: No se pudo traer la lista de cursos\n" + e.getMessage());
             throw e;// Conexion.cerrarConexion(cn);
         } finally {
-            Conexion.cerrarConexion(cn);
+            Conexion.cerrarRecursos(cn, st, rs);
         }
         return lista;
     }
