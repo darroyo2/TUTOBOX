@@ -1,3 +1,8 @@
+<%@page import="dao.TutoriaDao"%>
+<%@page import="entity.Tutoria"%>
+<%@page import="dao.CursoDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entity.Curso"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +17,13 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            List<Curso> cursos = new ArrayList<>(); // Llamada a la función obtenerMensajes() para obtener la lista de mensajes
+            cursos = CursoDao.listarCursos();
+
+            List<Tutoria> tutorias = new ArrayList<>();
+            tutorias = TutoriaDao.obtenerListaTutorias(Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo"))));
+        %>
         <div class="header">
             <center><b>Bienvenido</b></center>
         </div>
@@ -56,9 +68,15 @@
                             <label for="">Curso</label>
                         </div>
                         <div class="col-8">
-                            <select class="form-select" name="idrol" id="">
+                            <select class="form-select" name="idCurso" id="">
                                 <option value="-1">Seleccione Curso</option>
-                                <option value="opcion 1">opcion 1</option>
+                                <%
+                                    for (Curso c : cursos) {
+                                %>
+                                <option value="<%= c.getIdCurso()%>"><%= c.getNombre()%></option>
+                                <%
+                                    }
+                                %>
                             </select>
                         </div>
                     </div>
@@ -81,33 +99,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                        for (Tutoria t : tutorias) {
+                    %>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Programacion Movil</td>
-                        <td>2023-08-23</td>
-                        <td>Ingenieria</td>
-                        <td>4:00</td>
-                        <td>6:00</td>
+                        <th scope="row"><%= t.getId() %></th>
+                        <td><%= t.getTema() %></td>
+                        <td><%= t.getFecha() %></td>
+                        <td><%= t.getIdCurso() %></td>
+                        <td><%= t.getHoraIni() %></td>
+                        <td><%= t.getHoraFin() %></td>
                         <td><a class="btn btn btn-secondary btn_add_tutoria" href="#" role="button">Eliminar</a></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Programacion Orientado Objetos</td>
-                        <td>2023-10-12</td>
-                        <td>Ingenieria</td>
-                        <td>12:00</td>
-                        <td>2:00</td>
-                        <td><a class="btn btn btn-secondary btn_add_tutoria" href="#" role="button">Eliminar</a></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Ecuaciones Diferenciales</td>
-                        <td>2023-12-23</td>
-                        <td>Calculo</td>
-                        <td>15:00</td>
-                        <td>18:00</td>
-                        <td><a class="btn btn btn-secondary btn_add_tutoria" href="#" role="button">Eliminar</a></td>
-                    </tr>
+                    <%
+                        }
+                    %>
                 </tbody>
             </table>
         </div>

@@ -21,9 +21,9 @@ public class TutoriaDao {
 
     try {
         String query = "SELECT * FROM tutoria WHERE idTutor = ?";
+        cn = Conexion.getConexion();
         stmt = cn.prepareStatement(query);
         stmt.setInt(1,idTutor);
-        cn = Conexion.getConexion();
         rs = stmt.executeQuery();
 
         while (rs.next()) {

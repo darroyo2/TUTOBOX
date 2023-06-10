@@ -20,14 +20,14 @@ public class CursoDao {
         ResultSet rs;
         List<Curso> lista=new ArrayList<>();
         try {
-            String query = "SELECT * FROM curso";
+            String query = "SELECT * FROM tutobox.curso;";
             cn = Conexion.getConexion();
             st = cn.prepareStatement(query);           
             rs = st.executeQuery();
             while(rs.next()) {
                 Curso c = new Curso();
                 c.setIdCurso(rs.getInt("idCurso"));
-                c.setNombre(rs.getString("nombre"));
+                c.setNombre(rs.getString("descripcion"));
                 lista.add(c);
             }
             rs.close();
