@@ -39,6 +39,7 @@ public class TutoriaDao {
             tutoria.setEstadoPago(rs.getInt("estadoPago"));
             tutoria.setIdTutor(rs.getInt("idTutor"));
             tutoria.setIdEstudiante(rs.getInt("idEstudiante"));
+            tutoria.setIdCurso(rs.getInt("idCurso"));
             // También puedes obtener el usuario asociado a la tutoría aquí, si es necesario
 
             listaTutorias.add(tutoria);
@@ -77,13 +78,11 @@ public class TutoriaDao {
         conn = Conexion.getConexion();
 
         // Consulta SQL para insertar la tutoria en la base de datos
-        String query = "INSERT INTO tutoria (tema, estado, fecha, horaIni, horaFin, idTutor, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tutoria (tema, estado, fecha, horaIni, horaFin, idTutor, idCurso) VALUES (?, 'pendiente', ?, ?, ?, ?, ?)";
         stmt = conn.prepareStatement(query);
-        
         stmt.setString(1, tutoria.getTema());
-        stmt.setString(2, tutoria.getEstado());
-        stmt.setString(3, tutoria.getFecha());
-        stmt.setString(4, tutoria.getHoraIni());
+        stmt.setString(2, tutoria.getFecha());
+        stmt.setString(3, tutoria.getHoraIni());
         stmt.setString(4, tutoria.getHoraFin());
         stmt.setInt(5, tutoria.getIdTutor());
         stmt.setInt(6, tutoria.getIdCurso());
