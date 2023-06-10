@@ -78,16 +78,14 @@ public class TutoriaDao {
         conn = Conexion.getConexion();
 
         // Consulta SQL para insertar la tutoria en la base de datos
-        String query = "INSERT INTO tutoria (tema, estado, fecha, horaIni, horaFin, idTutor, idCurso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tutoria (tema, estado, fecha, horaIni, horaFin, idTutor, idCurso) VALUES (?, 'pendiente', ?, ?, ?, ?, ?)";
         stmt = conn.prepareStatement(query);
-        
         stmt.setString(1, tutoria.getTema());
-        stmt.setString(2, tutoria.getEstado());
-        stmt.setString(3, tutoria.getFecha());
-        stmt.setString(4, tutoria.getHoraIni());
-        stmt.setString(5, tutoria.getHoraFin());
-        stmt.setInt(6, tutoria.getIdTutor());
-        stmt.setInt(7, tutoria.getIdCurso());
+        stmt.setString(2, tutoria.getFecha());
+        stmt.setString(3, tutoria.getHoraIni());
+        stmt.setString(4, tutoria.getHoraFin());
+        stmt.setInt(5, tutoria.getIdTutor());
+        stmt.setInt(6, tutoria.getIdCurso());
         stmt.executeUpdate();
 
         // Obtener el ID generado para la publicación
