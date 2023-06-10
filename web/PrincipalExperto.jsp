@@ -49,7 +49,7 @@
                 </center>
             </div>
             <div class="col-10">
-                <% List<Publicacion> publicaciones = PublicacionDao.obtenerListaPublicaciones();
+                <% List<Publicacion> publicaciones = PublicacionDao.obtenerListaPublicaciones(Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo"))));
                     request.setAttribute("publicaciones", publicaciones);
                 %>
 
@@ -67,11 +67,11 @@
                         <tbody>
                             <% for (Publicacion publicacion : publicaciones) { %>
                                 <tr>
-                                    <td><%= guardarPublicacionServlet.obtenerNombreArchivo(publicacion.getPublicacion()) %></td>
-                                    <td><%= publicacion.getPublicacion()%></td>
-                                    <td><%= publicacion.getDescripcion() %></td>
-                                    <td><%= publicacion.getTipoCurso() %></td>
-                                    <td><%= publicacion.getFechaPublicacion() %></td>
+                                    <td><%= guardarPublicacionServlet.obtenerNombreArchivo(publicacion.getTitulo()) %></td>
+                                    <td><%= publicacion.getTitulo()%></td>
+                                    <td><%= publicacion.getCuerpo() %></td>
+                                    <td><%= publicacion.getIdCurso() %></td>
+                                    <td><%= publicacion.getFecha() %></td>
                                 </tr>
                             <% } %>
                         </tbody>
@@ -82,7 +82,7 @@
     </div>
 
     <div class="footer">
-        <strong>Universidad de Lima - Grupo 5</strong>
+        <strong>Universidad de Lima - Grupo 2</strong>
     </div>
 </body>
 </html>
