@@ -20,15 +20,15 @@ public class TutoriaDao {
     ResultSet rs = null;
 
     try {
+        cn = Conexion.getConexion();
         String query = "SELECT * FROM tutoria WHERE idTutor = ?";
         stmt = cn.prepareStatement(query);
-        stmt.setInt(1,idTutor);
-        cn = Conexion.getConexion();
+        stmt.setInt(1, idTutor);
         rs = stmt.executeQuery();
 
         while (rs.next()) {
             Tutoria tutoria = new Tutoria();
-            tutoria.setId(rs.getInt("id"));
+            tutoria.setId(rs.getInt("idTutoria"));
             tutoria.setTema(rs.getString("tema"));
             tutoria.setEstado(rs.getString("estado"));
             tutoria.setFecha(rs.getString("fecha"));
