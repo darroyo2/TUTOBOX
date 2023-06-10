@@ -23,16 +23,22 @@
 
             List<Tutoria> tutorias = new ArrayList<>();
             tutorias = TutoriaDao.obtenerListaTutorias(Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo"))));
-            
-            
+
+
         %>
         <div class="header">
             <center><b>Bienvenido</b></center>
         </div>
         <div class="container">
-            <h1>CREACION DE TUTORIAS</h1>
-
-            <<form action="EliminarTutoriaServlet">
+            <div class="row mt-3">
+                <div class="col-10">
+                    <h1 style="margin-top: 50px">CREACION DE TUTORIAS</h1>
+                </div>
+                <div class="col-2">
+                    <a style="margin-top: 50px" href="EliminarTutoriaServlet?accion=atras" class="btn btn-dark btn_add_tutoria">Regresar</a>
+                </div>
+            </div>
+            <form action="EliminarTutoriaServlet">
                 <div class="row border border-dark mt-3">
                     <div class="col-9 mt-2">
                         <div class="row mb-2">
@@ -74,8 +80,7 @@
                             <div class="col-8">
                                 <select class="form-select" name="idCurso" id="">
                                     <option value="-1">Seleccione Curso</option>
-                                    <%
-                                        for (Curso c : cursos) {
+                                    <%                                        for (Curso c : cursos) {
                                     %>
                                     <option value="<%= c.getIdCurso()%>"><%= c.getNombre()%></option>
                                     <%
@@ -112,7 +117,7 @@
                         <th scope="row" name="idTutoria"><%= t.getId()%></th>
                         <td><%= t.getTema()%></td>
                         <td><%= t.getFecha()%></td>
-                        <td><%= CursoDao.NombreCurso(t.getIdCurso()) %></td>
+                        <td><%= CursoDao.NombreCurso(t.getIdCurso())%></td>
                         <td><%= t.getHoraIni()%></td>
                         <td><%= t.getHoraFin()%></td>
                         <td><a class="btn btn btn-secondary btn_add_tutoria" href="EliminarTutoriaServlet?accion=eliminar&id=<%= t.getId()%>" role="button">Eliminar</a></td>

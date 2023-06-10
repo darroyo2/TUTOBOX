@@ -64,6 +64,8 @@ public class EliminarTutoriaServlet extends HttpServlet {
 //            tutoria.setIdTutor(4);
             TutoriaDao.AgregarTutoria(tutoria);
             acceso = crearTuto;
+        } else if(action.equalsIgnoreCase("atras")){
+            acceso = pantallaTutor;
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);
@@ -79,25 +81,26 @@ public class EliminarTutoriaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     String crearTuto = "CrearTutoriaJsp.jsp";
+    String pantallaTutor = "PrincipalExperto.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String acceso = "";
-        String action = request.getParameter("accion");
-        if (action.equalsIgnoreCase("eliminar")) {
-            try {
-                int id = Integer.parseInt(request.getParameter("id"));
-                //DAO
-                TutoriaDao.eliminarTutoria(id);
-                acceso = crearTuto;
-            } catch (SQLException ex) {
-                System.out.println("error 003" + ex);
-            }
-        }
-        RequestDispatcher vista = request.getRequestDispatcher(acceso);
-        vista.forward(request, response);
+//        String acceso = "";
+//        String action = request.getParameter("accion");
+//        if (action.equalsIgnoreCase("eliminar")) {
+//            try {
+//                int id = Integer.parseInt(request.getParameter("id"));
+//                //DAO
+//                TutoriaDao.eliminarTutoria(id);
+//                acceso = crearTuto;
+//            } catch (SQLException ex) {
+//                System.out.println("error 003" + ex);
+//            }
+//        }
+//        RequestDispatcher vista = request.getRequestDispatcher(acceso);
+//        vista.forward(request, response);
     }
 
     /**
