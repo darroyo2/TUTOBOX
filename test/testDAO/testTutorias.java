@@ -17,14 +17,14 @@ import java.util.logging.Logger;
 public class testTutorias {
     public static void main (String [] args){
     List<Tutoria> lista = null;
-            lista = TutoriaDao.obtenerListaTutorias(4);
+            lista = TutoriaDao.obtenerListaTutoriasXEstudiante(3);
             for (Tutoria u : lista) {
                 System.out.println("ID : "+u.getId());
                 System.out.println("Nombre : "+u.getComentario());
                 System.out.println("Apellido : "+u.getEstado());
                 System.out.println("Correo : "+u.getFecha());
-                System.out.println("Contraseña : "+u.getHoraFin());
-                System.out.println("IDTipo : "+u.getTema());
+                System.out.println("Contraseña : "+u.getIdTutor());
+                System.out.println("IDTipo : "+u.getComentario());
             }
         } 
      
