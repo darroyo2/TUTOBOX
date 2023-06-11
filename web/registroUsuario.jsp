@@ -17,7 +17,6 @@
             List<TipoUsuario> tiposUsuario = new ArrayList<>(); 
             tiposUsuario = TipoUsuarioDAO.listarTiposUsuario();
         %>
-        
         <div class="header">
             <strong>Seguridad del Sistema</strong>
         </div>
