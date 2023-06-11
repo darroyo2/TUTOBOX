@@ -1,3 +1,7 @@
+<%@page import="entity.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.CursoDao"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +29,13 @@
     </script>
 </head>
 <body>
+    
+    <%
+        List<Curso> cursos = new ArrayList<>(); 
+        cursos = CursoDao.listarCursos();
+        int codigoUsuarioExperto = Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo")));
+    %>
+    
     <div class="header">
         <center><b>Bienvenido</b></center>
     </div>
@@ -48,8 +59,16 @@
             </div>
 
             <div class="form-group">
-                <label for="tipo_curso">Tipo de Curso:</label>
-                <input type="text" class="form-control" name="tipo_curso" required>
+                <label for="curso">Cursos:</label>
+                <select class="form-control" name="idCurso" id="">
+                                    <option value="-1">Seleccione Curso</option>
+                                    <%                                        for (Curso c : cursos) {
+                                    %>
+                                    <option value="<%= c.getIdCurso()%>"><%= c.getNombre()%></option>
+                                    <%
+                                        }
+                                    %>
+                </select>
             </div>
 
             <div class="form-group">
