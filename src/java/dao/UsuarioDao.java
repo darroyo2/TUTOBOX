@@ -191,7 +191,7 @@ public static String obtenerNombrePorUsuarioId(int usuarioId) {
     try {
         conn = Conexion.getConexion(); // Obtener conexión a la base de datos
 
-        String query = "SELECT nombre FROM usuario WHERE id = ?";
+        String query = "SELECT nombre FROM usuario WHERE idUsuario = ?";
         stmt = conn.prepareStatement(query);
         stmt.setInt(1, usuarioId);
         rs = stmt.executeQuery();

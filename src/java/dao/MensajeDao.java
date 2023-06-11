@@ -68,12 +68,12 @@ public class MensajeDao {
         return mensajes;
     }
     
-    public static Mensaje obtenerMensajePorId(int receptor) {
+    public static List<Mensaje> obtenerMensajePorId(int receptor) {
     Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
     Mensaje mensaje = null;
-    
+    List<Mensaje> mensajes =new ArrayList<>();
     try {
         conn = Conexion.getConexion(); // Obtener la conexión a la base de datos
         
@@ -86,9 +86,9 @@ public class MensajeDao {
         rs = stmt.executeQuery();
         
         // Verificar si se encontró un mensaje con el ID proporcionado
-        if (rs.next()) {
+        while (rs.next()) {
             // Extraer los datos del mensaje de la fila actual
-            int id = rs.getInt("id");
+            int id = rs.getInt("idMensaje");
             String asunto = rs.getString("asunto");
             String contenido = rs.getString("cuerpo");
             String fecha = rs.getString("fechaEnvio");
@@ -96,6 +96,7 @@ public class MensajeDao {
             
             // Crear el objeto Mensaje con los datos obtenidos
               mensaje = new Mensaje(id, asunto, contenido, fecha, emisor, receptor);
+              mensajes.add(mensaje);
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -103,7 +104,7 @@ public class MensajeDao {
         Conexion.cerrarRecursos(conn, stmt, rs); // Cerrar la conexión, el statement y el result set
     }
     
-    return mensaje;
+    return mensajes;
 }
 
     

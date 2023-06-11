@@ -17,19 +17,20 @@ import java.util.logging.Logger;
  */
 public class testUsuarioDAO {
     public static void main (String [] args){
-    List<Usuario> lista = null;
-        try {
-            lista = UsuarioDao.listaUsuario();
-            for (Usuario u : lista) {
-                System.out.println("ID : "+u.getId());
-                System.out.println("Nombre : "+u.getNombres());
-                System.out.println("Apellido : "+u.getApellidos());
-                System.out.println("Correo : "+u.getEmail());
-                System.out.println("Contraseña : "+u.getPassword());
-                System.out.println("IDTipo : "+u.getIdTipo());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(testUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//    List<Usuario> lista = null;
+//        try {
+//            lista = UsuarioDao.listaUsuario();
+//            for (Usuario u : lista) {
+//                System.out.println("ID : "+u.getId());
+//                System.out.println("Nombre : "+u.getNombres());
+//                System.out.println("Apellido : "+u.getApellidos());
+//                System.out.println("Correo : "+u.getEmail());
+//                System.out.println("Contraseña : "+u.getPassword());
+//                System.out.println("IDTipo : "+u.getIdTipo());
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(testUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
+        System.out.println(UsuarioDao.obtenerNombrePorUsuarioId(4));
 }}
