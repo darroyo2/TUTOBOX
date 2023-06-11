@@ -1,3 +1,8 @@
+<%@page import="dao.TutoriaDao"%>
+<%@page import="entity.Tutoria"%>
+<%@page import="dao.CursoDao"%>
+<%@page import="entity.Curso"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="controller.guardarPublicacionServlet"%>
 <%@page import="dao.PublicacionDao"%>
 <%@page import="entity.Publicacion"%>
@@ -21,7 +26,7 @@
         }
     </style>
 </head>
-<body>
+<body>  
     <div class="header">
         <center><b>Bienvenido</b></center>
     </div>
@@ -62,6 +67,7 @@
                                 <th>Descripcion</th>
                                 <th>Tipo de Curso</th>
                                 <th>Fecha de Publicacion</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,8 +76,9 @@
                                     <td><%= guardarPublicacionServlet.obtenerNombreArchivo(publicacion.getTitulo()) %></td>
                                     <td><%= publicacion.getTitulo()%></td>
                                     <td><%= publicacion.getCuerpo() %></td>
-                                    <td><%= publicacion.getIdCurso() %></td>
+                                    <td><%= CursoDao.NombreCurso(publicacion.getIdCurso())%></td>
                                     <td><%= publicacion.getFecha() %></td>
+                                    <td><a class="btn btn btn-secondary btn_add_tutoria" href="PublicacionExpertoServlet?accion=eliminar&id=<%= publicacion.getId()%>" role="button">Eliminar</a></td>
                                 </tr>
                             <% } %>
                         </tbody>

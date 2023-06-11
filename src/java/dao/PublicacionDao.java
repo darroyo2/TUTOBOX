@@ -19,11 +19,11 @@ public class PublicacionDao {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-        conn = Conexion.getConexion();
-        String query = "DELETE FROM publicacion WHERE idPublicacion = ?";
-        stmt = conn.prepareStatement(query);
-        stmt.setInt(1,idPublicacion);
-        stmt.executeUpdate();
+            conn = Conexion.getConexion();
+            String query = "DELETE FROM publicacion WHERE idPublicacion = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1,idPublicacion);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -74,20 +74,16 @@ public class PublicacionDao {
     
     
     
-   public static int guardarPublicacion(Publicacion publicacion) {
+   public static boolean guardarPublicacion(Publicacion publicacion) throws SQLException{
     Connection conn = null;
     PreparedStatement stmt = null;
-    ResultSet generatedKeys = null;
-    int publicacionId = 0;
-
+    ResultSet rs = null;
     try {
         conn = Conexion.getConexion();
 
         // Consulta SQL para insertar la publicación en la base de datos y obtener el ID generado
         String query = "INSERT INTO publicacion (titulo, cuerpo, fecha, documento, idCurso, idUsuario) VALUES (?, ?, ?, ?, ?, ?)";
-
-        stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        
+        stmt = conn.prepareStatement(query);
         stmt.setString(1, publicacion.getTitulo());
         stmt.setString(2, publicacion.getCuerpo());
         stmt.setString(3, publicacion.getFecha());
@@ -95,19 +91,14 @@ public class PublicacionDao {
         stmt.setInt(5, publicacion.getIdCurso());
         stmt.setInt(6, publicacion.getIdUsuario());
         stmt.executeUpdate();
-
-        // Obtener el ID generado para la publicación
-        generatedKeys = stmt.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            publicacionId = generatedKeys.getInt(1);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
+    } 
+    catch (SQLException e) {
+        System.out.println("Error al guardar el usuario: " + e.getMessage());
+        return false;
     } finally {
-        Conexion.cerrarRecursos(conn, stmt, generatedKeys);
+        Conexion.cerrarRecursos(conn, stmt, rs);
     }
-
-    return publicacionId;
+    return true;
 }
 
 

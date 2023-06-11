@@ -16,9 +16,9 @@ import javax.servlet.http.Part;
 
 import dao.PublicacionDao;
 import entity.Publicacion;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
-import java.util.Base64;
 
 
 @WebServlet(name = "guardarPublicacionServlet", urlPatterns = {"/guardarPublicacionServlet"})
@@ -28,41 +28,36 @@ public class guardarPublicacionServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
             // Obtener los valores de los parámetros del formulario
             Part filePart = request.getPart("documento");
             String fileName = filePart.getSubmittedFileName();
             String titulo = request.getParameter("publicacion");
             String cuerpo = request.getParameter("descripcion");
-            String idCurso = request.getParameter("tipo_curso");
+            String idCurso = request.getParameter("idCurso");
             String fecha = request.getParameter("fecha_publicacion");
-            String idUsuario = request.getParameter("idExperto");
-
+            int idUsuario = Integer.parseInt(String.valueOf(request.getSession().getAttribute("UsuarioCodigo")));
+            
+            
             // Leer los bytes del archivo
             InputStream documentoStream = filePart.getInputStream();
             byte[] documentoBytes = documentoStream.readAllBytes();
-
+            System.out.println(documentoBytes);
             // Crear el objeto Publicacion
-            Publicacion publicacionGuardada = new Publicacion(documentoBytes, titulo, cuerpo, fecha, Integer.parseInt(idCurso), Integer.parseInt(idUsuario));
+            Publicacion publicacionGuardada = new Publicacion(documentoBytes, titulo, cuerpo, fecha, Integer.parseInt(idCurso), idUsuario);
             
-            //CAMBIADO PARA QUE NO DE ERROR, PERO POSIBLEMENTE HAYA QUE EDITAR, SE AÑADIÓ EL IDTUTOR Y SE CAMBIÓ EL IDCURSO QUE NO TENÍA RELACION CON LAS OTRAS TABLAS
-
             // Guardar la publicación en la base de datos y obtener el ID generado
-            int publicacionId = PublicacionDao.guardarPublicacion(publicacionGuardada);
-            publicacionGuardada.setId(publicacionId);
-
-            // Agregar el nombre del archivo como atributo en la solicitud
-            request.setAttribute("nombreArchivo", fileName);
-
-            // Redirigir al JSP
-            RequestDispatcher dispatcher = request.getRequestDispatcher("PrincipalExperto.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            boolean respuesta = PublicacionDao.guardarPublicacion(publicacionGuardada);
+            
+            if (respuesta) {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("PrincipalExperto.jsp");
+                dispatcher.forward(request, response);
+            }else{
+                System.out.println("Error al momento de ingresar un publicacion");
+            }
+        } catch (IOException | NumberFormatException | SQLException | ServletException e) {
+            System.out.println("mensaje de error: " + e.getMessage());
         }
-
     }
 
     public static String obtenerNombreArchivo(String nombreCompleto) {

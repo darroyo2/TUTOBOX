@@ -126,28 +126,29 @@ public class UsuarioDao {
     return roles;
 }
 
-public static boolean guardarUsuario(Usuario usuario) {
-    try (Connection conn = Conexion.getConexion()) {
-        String sql = "INSERT INTO usuario (nombre, apellidos, correo, contrasena) VALUES (?, ?, ?, ?)";
+public static boolean guardarUsuario(Usuario usuario) throws SQLException {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+            conn = Conexion.getConexion();
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            String sql = "INSERT INTO usuario (nombre, apellidos, correo, contrasena, idTipo) VALUES (?, ?, ?, ?,?)";
+            stmt = conn.prepareStatement(sql);
             stmt.setString(1, usuario.getNombres());
             stmt.setString(2, usuario.getApellidos());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getPassword());
-
+            stmt.setInt(5, usuario.getIdTipo());
             stmt.executeUpdate();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             // Manejar el error de la base de datos
             System.out.println("Error al guardar el usuario: " + e.getMessage());
             return false;
+        } finally {
+            Conexion.cerrarRecursos(conn, stmt, rs);
         }
-    } catch (SQLException e) {
-        // Manejar el error de la conexión a la base de datos
-        System.out.println("Error de conexión a la base de datos: " + e.getMessage());
-        return false;
-    }
-
     return true;
 }
 

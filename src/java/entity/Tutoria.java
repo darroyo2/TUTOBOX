@@ -35,8 +35,6 @@ public class Tutoria {
         this.idCurso = idCurso;
     }
 
-    
-
     public Tutoria() {
     }
 
