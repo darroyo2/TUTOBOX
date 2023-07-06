@@ -232,4 +232,29 @@ public static List<String> obtenerNombreRolesUsuario(String nombreUsuario) {
 
     return roles;
 }    
+public static String obtenerApellidoPorUsuarioId(int usuarioId) {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    String apellido = ""; // Valor por defecto en caso de no encontrar el nombre
+
+    try {
+        conn = Conexion.getConexion(); // Obtener conexión a la base de datos
+
+        String query = "SELECT apellido FROM usuario WHERE idUsuario = ?";
+        stmt = conn.prepareStatement(query);
+        stmt.setInt(1, usuarioId);
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            apellido = rs.getString("apellido");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        Conexion.cerrarRecursos(conn, stmt, rs); // Cerrar recursos (conexión, statement y resultSet)
+    }
+
+    return apellido;
+}
 }
