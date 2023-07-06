@@ -37,29 +37,24 @@
         <div class="row" style="margin-top: 100px;">
             <div class="col-2" style="align-content: center;">
                 <div style="border: 1px solid black; padding: 10px;">
-                    <%  int idExperto = 1;
-                %>
+                    <%  int idExperto = 4;%>
                     <center><strong><p class="text-dark">Datos del Profesor:</p></strong></center>
-                    <center><b>Nombre: <%= %> </b></center>
-                    <center><b>Apellido: <%= session.getAttribute("UsuarioApellido")%></b></center>
-                    <center><b>Rol: <%= String.join(", ", (List<String>) session.getAttribute("UsuarioRoles"))%></b></center>
+                    <center><b>Nombre: <%= UsuarioDao.obtenerNombrePorUsuarioId(idExperto) %> </b></center>
+                    <center><b>Apellido: <%= UsuarioDao.obtenerApellidoPorUsuarioId(idExperto)%></b></center>
+                    <center><b>Rol: <%= String.join(", ", (List<String>) UsuarioDao.obtenerNombreRolesUsuario(idExperto))%></b></center>
                 </div>
                 &nbsp;
                 <center>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="redireccionar('CrearPublicacionJsp.jsp')">Crear Publicacion</button>
+                        <button class="btn btn-primary" onclick="redireccionar('EnviarMensaje.jsp')">Enviar Mensaje</button>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="redireccionar('RevisarMensajesJsp.jsp')">Revisar mensajes</button>
-                    </div>
-                    <div class="col-12">
-                        <button class="btn btn-primary" onclick="redireccionar('CrearTutoriaJsp.jsp')">Crear Tutorias</button>
+                        <button class="btn btn-primary" onclick="redireccionar('ConsultarTutorias.jsp')">Consultar Tutorías</button>
                     </div>
                 </center>
             </div>
             <div class="col-10">
-                <% List<Publicacion> publicaciones = PublicacionDao.obtenerListaPublicaciones(Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo"))));
-                    request.setAttribute("publicaciones", publicaciones);
+                <% List<Publicacion> publicaciones = PublicacionDao.obtenerListaPublicaciones(idExperto);
                 %>
 
                 <div class="container">
@@ -71,7 +66,6 @@
                                 <th>Descripcion</th>
                                 <th>Tipo de Curso</th>
                                 <th>Fecha de Publicacion</th>
-                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,7 +76,6 @@
                                     <td><%= publicacion.getCuerpo() %></td>
                                     <td><%= CursoDao.NombreCurso(publicacion.getIdCurso())%></td>
                                     <td><%= publicacion.getFecha() %></td>
-                                    <td><a class="btn btn btn-secondary btn_add_tutoria" href="PublicacionExpertoServlet?accion=eliminar&id=<%= publicacion.getId()%>" role="button">Eliminar</a></td>
                                 </tr>
                             <% } %>
                         </tbody>
@@ -93,7 +86,7 @@
     </div>
 
     <div class="footer">
-        <strong>Universidad de Lima - Grupo 2</strong>
+        <strong></strong>
     </div>
 </body>
 </html>

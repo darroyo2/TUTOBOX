@@ -241,13 +241,13 @@ public static String obtenerApellidoPorUsuarioId(int usuarioId) {
     try {
         conn = Conexion.getConexion(); // Obtener conexión a la base de datos
 
-        String query = "SELECT apellido FROM usuario WHERE idUsuario = ?";
+        String query = "SELECT apellidos FROM usuario WHERE idUsuario = ?";
         stmt = conn.prepareStatement(query);
         stmt.setInt(1, usuarioId);
         rs = stmt.executeQuery();
 
         if (rs.next()) {
-            apellido = rs.getString("apellido");
+            apellido = rs.getString("apellidos");
         }
     } catch (SQLException e) {
         e.printStackTrace();
