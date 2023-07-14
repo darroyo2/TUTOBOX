@@ -202,5 +202,45 @@ public class TutoriaDao {
             Conexion.cerrarRecursos(conn, stmt, rs);
         }
     }
+    
+    public static List<Tutoria> obtnerListaTutoriasDisponibles(int idTutor){
+        List<Tutoria> listaTutorias = new ArrayList<>();
+        Connection cn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConexion();
+            String query = "SELECT * FROM tutoria WHERE idTutor = ? AND idEstudiante IS NULL AND estado = 'pendiente'";
+            stmt = cn.prepareStatement(query);
+            stmt.setInt(1, idTutor);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Tutoria tutoria = new Tutoria();
+                tutoria.setId(rs.getInt("idTutoria"));
+                tutoria.setTema(rs.getString("tema"));
+                tutoria.setEstado(rs.getString("estado"));
+                tutoria.setFecha(rs.getString("fecha"));
+                tutoria.setHoraIni(rs.getString("horaIni"));
+                tutoria.setHoraFin(rs.getString("horaFin"));
+                tutoria.setPuntuacion(rs.getInt("puntuacion"));
+                tutoria.setComentario(rs.getString("comentario"));
+                tutoria.setEstadoPago(rs.getInt("estadoPago"));
+                tutoria.setIdTutor(rs.getInt("idTutor"));
+                tutoria.setIdEstudiante(rs.getInt("idEstudiante"));
+                tutoria.setIdCurso(rs.getInt("idCurso"));
+                // También puedes obtener el usuario asociado a la tutoría aquí, si es necesario
+
+                listaTutorias.add(tutoria);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: No se pudo obtener la lista de tutorías\n" + e.getMessage());
+        } finally {
+            Conexion.cerrarRecursos(cn, stmt, rs);
+        }
+
+        return listaTutorias;
+    }
     }
     

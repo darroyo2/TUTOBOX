@@ -28,7 +28,7 @@
                         <%
                             int idTutor = 4;
                                     //Integer.parseInt(String.valueOf(session.getAttribute("IdTutor")
-                             List<Tutoria> tutorias = TutoriaDao.obtenerListaTutorias(idTutor);
+                             List<Tutoria> tutorias = TutoriaDao.obtnerListaTutoriasDisponibles(idTutor);
                             for (Tutoria tutoria : tutorias) { // Iterar sobre la lista de tutorias
                                 int id = tutoria.getId();
                                 String tema = tutoria.getTema();
