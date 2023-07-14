@@ -106,7 +106,27 @@ public class MensajeDao {
     
     return mensajes;
 }
+    public static void guardarMensaje(Mensaje mensaje){
+        Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+        conn = Conexion.getConexion();
 
-    
-    
+        // Consulta SQL para insertar la publicación en la base de datos y obtener el ID generado
+        String query = "INSERT INTO mensaje (asunto, cuerpo, fechaEnvio, idUsuarioEmisor, idUsuarioReceptor) VALUES (?, ?, ?, ?, ?)";
+        stmt = conn.prepareStatement(query);
+        stmt.setString(1, mensaje.getAsunto());
+        stmt.setString(2, mensaje.getContenido());
+        stmt.setString(3, mensaje.getFecha());
+        stmt.setInt(4, mensaje.getIdEmisor());
+        stmt.setInt(5, mensaje.getIdReceptor());
+        stmt.executeUpdate();
+    } 
+    catch (SQLException e) {
+        System.out.println("Error al guardar el mensaje: " + e.getMessage());
+    } finally {
+        Conexion.cerrarRecursos(conn, stmt, rs);
+    }
+    }
 }
