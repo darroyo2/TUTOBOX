@@ -184,4 +184,23 @@ public class TutoriaDao {
 
         return tutorias;
     }
-}
+    
+    public static void RegistrarAlumno(int idEstudiante, int idTutoria){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.getConexion();
+            String query = "INSERT INTO tutoria (idEstudiante) VALUES (?) WHERE idTutoria = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1, idEstudiante);
+            stmt.setInt(2, idTutoria);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Conexion.cerrarRecursos(conn, stmt, rs);
+        }
+    }
+    }
+    
