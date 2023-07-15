@@ -75,7 +75,7 @@
                     <td><%= r.getNombreUsuarioExperto()%></td>
                     <td><%= r.getTotalTutorias()%></td>
                     <td><%= r.getPromedio()%></td>
-                    <td><a class="btn btn btn-secondary btn_add_tutoria" href="EliminarTutoriaServlet?accion=eliminar&id=" role="button">Ver Perfil</a></td>
+                    <td><a class="btn btn btn-secondary btn_add_tutoria" href="RankingTutoresServlet?accion=verPerfil&id=<%= r.getIdUsuarioExperto()%>" role="button">Ver Perfil</a></td>
                 </tr>
                  <%
                      }

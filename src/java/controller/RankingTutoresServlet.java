@@ -39,6 +39,10 @@ public class RankingTutoresServlet extends HttpServlet {
             System.out.println(id_curso);
             request.getSession().setAttribute("idCursoAux", id_curso);
             acceso = "RankingTutores.jsp";
+        }else if (action.equalsIgnoreCase("verPerfil")) {
+            String id_Experto_aux=request.getParameter("id");
+            request.getSession().setAttribute("idExpertoAux", id_Experto_aux);
+            acceso = "PerfilExperto.jsp";
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);

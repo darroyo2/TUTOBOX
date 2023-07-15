@@ -37,7 +37,7 @@
         <div class="row" style="margin-top: 100px;">
             <div class="col-2" style="align-content: center;">
                 <div style="border: 1px solid black; padding: 10px;">
-                    <%  int idExperto = 4;%>
+                    <%  int idExperto = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idExpertoAux")));%>
                     <center><strong><p class="text-dark">Datos del Profesor:</p></strong></center>
                     <center><b>Nombre: <%= UsuarioDao.obtenerNombrePorUsuarioId(idExperto) %> </b></center>
                     <center><b>Apellido: <%= UsuarioDao.obtenerApellidoPorUsuarioId(idExperto)%></b></center>
@@ -49,7 +49,7 @@
                         <button class="btn btn-primary" onclick="redireccionar('EnviarMensaje.jsp')">Enviar Mensaje</button>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="redireccionar('ConsultarTutorias.jsp')">Consultar Tutorías</button>
+                        <button class="btn btn-primary" onclick="redireccionar('ListadoTutoriasExperto.jsp')">Consultar Tutorías</button>
                     </div>
                 </center>
             </div>

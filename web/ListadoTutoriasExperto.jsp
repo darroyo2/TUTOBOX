@@ -27,7 +27,7 @@
                     <div class="list-group">
                         <%
                             int idEstudiante = Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo")));
-                            int idTutor = 4;
+                            int idTutor = Integer.parseInt(String.valueOf(request.getSession().getAttribute("idExpertoAux")));
                                     //Integer.parseInt(String.valueOf(session.getAttribute("IdTutor")
                              List<Tutoria> tutorias = TutoriaDao.obtnerListaTutoriasDisponibles(idTutor);
                             for (Tutoria tutoria : tutorias) { // Iterar sobre la lista de tutorias
