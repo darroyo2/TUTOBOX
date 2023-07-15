@@ -50,6 +50,7 @@ public class ServletInicioSesion extends HttpServlet {
             sesion.setAttribute("UsuarioCodigo", usuario.getId());
             sesion.setAttribute("UsuarioNombre", usuario.getNombres());
             sesion.setAttribute("UsuarioApellido", usuario.getApellidos());
+            sesion.setAttribute("idCursoAux", -1);
             // Obtener el rol del usuario
             // Obtener la lista de roles del usuario
             List<String> roles = UsuarioDao.obtenerNombreRolesUsuario(usuario.getId());

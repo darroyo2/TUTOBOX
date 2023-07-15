@@ -23,9 +23,8 @@
 
             List<Tutoria> tutorias = new ArrayList<>();
             tutorias = TutoriaDao.obtenerListaTutorias(Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo"))));
-
-
         %>
+        
         <div class="header">
             <center><b>Bienvenido</b></center>
         </div>

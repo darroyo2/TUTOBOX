@@ -45,7 +45,7 @@
                             <button class="btn btn-primary" onclick="redireccionar('ConsultarExpertoJsp.jsp')">Consultar Experto</button>
                         </div>
                         <div class="col-12">
-                            <button class="btn btn-primary" onclick="redireccionar('CrearTutoriaJsp.jsp')">Registrarse</button>
+                            <button class="btn btn-primary" onclick="redireccionar('RankingTutores.jsp')">Ranking Tutores</button>
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary" onclick="redireccionar('ReporteTutoriasJsp.jsp')">Reporte Tutorias</button>
