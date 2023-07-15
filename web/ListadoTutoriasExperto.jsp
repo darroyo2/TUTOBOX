@@ -26,6 +26,7 @@
                 <div class="card-body">
                     <div class="list-group">
                         <%
+                            int idEstudiante = Integer.parseInt(String.valueOf(session.getAttribute("UsuarioCodigo")));
                             int idTutor = 4;
                                     //Integer.parseInt(String.valueOf(session.getAttribute("IdTutor")
                              List<Tutoria> tutorias = TutoriaDao.obtnerListaTutoriasDisponibles(idTutor);
@@ -46,7 +47,7 @@
                                 </a> 
                             </div>
                             <div class="col-2">
-                                <button class="btn btn-secondary">Registrarme</button>
+                                <a class="btn btn btn-secondary btn_add_tutoria" href="InscripcionTutoriaServlet?accion=inscribir&id=<%= id%>&<%=idEstudiante%>" role="button">Registrarme</a>
                             </div>
                         </div>
                         <% } // Fin del bucle for %>

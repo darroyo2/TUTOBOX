@@ -191,7 +191,7 @@ public class TutoriaDao {
         ResultSet rs = null;
         try {
             conn = Conexion.getConexion();
-            String query = "INSERT INTO tutoria (idEstudiante) VALUES (?) WHERE idTutoria = ?";
+            String query = "UPDATE tutoria SET idEstudiante = (?) WHERE idTutoria = ?";
             stmt = conn.prepareStatement(query);
             stmt.setInt(1, idEstudiante);
             stmt.setInt(2, idTutoria);
