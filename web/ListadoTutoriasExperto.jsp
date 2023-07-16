@@ -47,7 +47,7 @@
                                 </a> 
                             </div>
                             <div class="col-2">
-                                <a class="btn btn btn-secondary btn_add_tutoria" href="InscripcionTutoriaServlet?accion=inscribir&id=<%= id%>&<%=idEstudiante%>" role="button">Registrarme</a>
+                                <a class="btn btn btn-secondary btn_add_tutoria" href="InscripcionTutoriaServlet?accion=inscribir&id=<%= id%>&idEstudiante=<%=idEstudiante%>" role="button">Registrarme</a>
                             </div>
                         </div>
                         <% } // Fin del bucle for %>
